@@ -1,6 +1,8 @@
 require 'mechanize'
 require 'csv'
 
+member_data = Array.new
+team_data = Hash.new
 agent = Mechanize.new
 
 page = agent.get("https://www.mypelotonia.org/team_profile.jsp?MemberID=311516")
@@ -9,10 +11,14 @@ page = agent.get("https://www.mypelotonia.org/team_profile.jsp?MemberID=311516")
 #team_info = page.search("div.dashboard-status dl").map(&:text).map{ |i| i.gsub(/\s/, '')}
 team_info = page.search("div.dashboard-status dl").map(&:text)
 
+team_data[:peloton_funds] = team_info[0].split(':').last.strip.squeeze(' ')
+team_data[:total_of_all_members] = team_info[1].split(':').last.strip.squeeze(' ')
+team_data[:grand_total_raised] = team_info[2].split(':').last.strip.squeeze(' ')
+team_data[:captain] = team_info[3].split(':').last.strip.squeeze(' ')
+
 #Get Peloton members
 member_links = page.links_with(:href => /riders_profile/)
 
-member_data = Array.new
 member_links.each do |member_link|
   member_info = Hash.new
   member_info[:name] = member_link.text.strip.squeeze(' ')
@@ -40,7 +46,11 @@ member_links.each do |member_link|
 end
 member_data.uniq!
 
-#File.open('pelotonia_team.csv', 'w'){ |file| member_data.map{ |record| file << record.to_csv } }
+File.open('pelotonia_peloton.csv', 'w') do |file|
+  file << team_data.keys.to_csv
+  file << team_data.values.to_csv
+end
+
 File.open('pelotonia_team.csv', 'w') do |file|
   file << member_data.first.keys.to_csv
 
