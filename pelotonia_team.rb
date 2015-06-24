@@ -1,9 +1,12 @@
 require 'mechanize'
-require 'csv'
+require 'json'
 
 member_data = Array.new
 team_data = Hash.new
 agent = Mechanize.new
+
+pelotonia_date = Date.new(2015,8,8)
+days = (pelotonia_date - Date.today).to_i
 
 page = agent.get("https://www.mypelotonia.org/team_profile.jsp?MemberID=311516")
 
@@ -15,6 +18,7 @@ team_data[:peloton_funds] = team_info[0].split(':').last.strip.squeeze(' ')
 team_data[:total_of_all_members] = team_info[1].split(':').last.strip.squeeze(' ')
 team_data[:grand_total_raised] = team_info[2].split(':').last.strip.squeeze(' ')
 team_data[:captain] = team_info[3].split(':').last.strip.squeeze(' ')
+team_data[:days_until] = days
 
 #Get Peloton members
 member_links = page.links_with(:href => /riders_profile/)
@@ -46,17 +50,12 @@ member_links.each do |member_link|
 end
 member_data.uniq!
 
-File.open('pelotonia_peloton.csv', 'w') do |file|
-  file << team_data.keys.to_csv
-  file << team_data.values.to_csv
+File.open('pelotonia_peloton.json', 'w') do |file|
+  file.write(team_data.to_json)
 end
 
-File.open('pelotonia_team.csv', 'w') do |file|
-  file << member_data.first.keys.to_csv
-
-  member_data.each do |team_member_data|
-    file << team_member_data.values.to_csv
-  end
+File.open('pelotonia_team.json', 'w') do |file|
+  file.write(member_data.to_json)
 end
 
 #page.at #single
