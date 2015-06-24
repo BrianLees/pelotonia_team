@@ -12,11 +12,11 @@
 <table border="1">
   <tr>
     <% columns = locals[:team_member_data].first.keys %>
-    <td><%= columns[0]%></td><td><%= columns[2]%></td><td><%= columns[3] %></td><td><%= columns[6]%></td><td><%= columns[4]%></td><td><%= columns[5]%></td>
+    <td><%= columns[0]%></td><td><%= columns[2]%></td><td><%= columns[3] %></td><td><%= columns[6]%></td><td><%= columns[7]%></td><td><%= columns[4]%></td><td><%= columns[5]%></td>
   </tr>
 <% locals[:team_member_data].each do |member| %>
   <tr>
-    <td><%= member['name']%></td><td><%= member['route']%></td><td><%= member['raised'] %></td><td><%= member['goal']%></td><td><%= member['type']%></td><td><%= member['story']%></td>
+    <td><%= link("http://mypelotonia.org/#{member['link']}", member['name'], true) %></td><td><%= member['route']%></td><td><%= member['raised'] %></td><td><%= member['goal']%></td><td><%= member['finished'] %></td><td><%= member['type']%></td><td><%= member['story']%></td>
   </tr>
 <% end %>
 </table>

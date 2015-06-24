@@ -40,11 +40,18 @@ member_links.each do |member_link|
   else
     member_info[:route] = 'N/A'
     member_info[:raised] = rider_info[0].split(':').last.strip.squeeze(' ') 
+    member_info[:finished] = 'N/A'
     member_info[:type] = 'Virtual Rider'
   end
 
   member_info[:story] = story.include?("(no story on file)") ? "Not completed" : "Completed"
-  member_info[:goal] = goal.split(':').last.strip.squeeze(' ') unless goal.nil?
+  member_info[:goal] = goal.nil? ? 'N/A' : goal.split(':').last.strip.squeeze(' ')
+  if member_info[:goal].include?('Congrats')
+    member_info[:goal] = member_info[:goal].split(' ').first
+    member_info[:finished] = 'yes'
+  else
+    member_info[:finished] = 'no'
+  end
 
   member_data << member_info
 end
