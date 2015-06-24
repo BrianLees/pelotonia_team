@@ -1,6 +1,8 @@
 # pelotonia_team
 
 ###Setup
+Note: Before running the first time, the `/data` needs to be created.
+
 Create JSON data files
 ```bash
 ruby pelotonia_team.rb
