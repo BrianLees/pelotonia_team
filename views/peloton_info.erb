@@ -1,11 +1,13 @@
 <table border="1">
   <tr>
+    <% team = locals[:team_data]%>
+    <% team['total_needed'] = to_cash(locals[:team_member_data].select{|m| m['type'] == 'Rider'}.reduce(0){|total, rider| total += rider['goal'].gsub(/\$|\,/, '').to_f}) %>
+    <% team['percentage'] = "#{((cash_to_float(team['grand_total_raised']) / cash_to_float(team['total_needed'])) * 100).round(2)}%" %>
     <% columns = locals[:team_data].keys %>
-    <td><%= columns[0]%></td><td><%= columns[1]%></td><td><%= columns[2] %></td><td><%= columns[3]%></td>
+    <td><%= columns[0]%></td><td><%= columns[1]%></td><td><%= columns[2] %></td><td><%= columns[5] %></td><td><%= columns[6] %></td><td><%= columns[3]%></td>
   </tr>
   <tr>
-    <% team = locals[:team_data]%>
-    <td><%= team['peloton_funds']%></td><td><%= team['total_of_all_members']%></td><td><%= team['grand_total_raised'] %></td><td><%= team['captain']%></td>
+    <td><%= team['peloton_funds']%></td><td><%= team['total_of_all_members']%></td><td><%= team['grand_total_raised'] %></td><td><%= team['total_needed'] %></td><td><%= team['percentage'] %></td><td><%= team['captain']%></td>
   </tr>
 </table>
 <hr>
