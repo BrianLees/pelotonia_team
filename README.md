@@ -13,4 +13,4 @@ Launch Sinatra app
 bundle install
 ruby covermymeds_peloton.rb
 ```
-Visit the url: http://localhost:4567
+Visit the url: `http://localhost:4567`
