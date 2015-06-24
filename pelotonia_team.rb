@@ -50,7 +50,7 @@ member_links.each do |member_link|
     member_info[:goal] = member_info[:goal].split(' ').first
     member_info[:finished] = 'yes'
   else
-    member_info[:finished] = 'no'
+    member_info[:type] == 'Rider' ? member_info[:finished] = 'no' : member_info[:finished] = 'N/A'
   end
 
   member_data << member_info
