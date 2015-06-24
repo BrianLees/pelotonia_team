@@ -4,7 +4,7 @@ require 'json'
 helpers do
   def link(url, text, popup=false)
     target = popup ? ' target="_blank"' : ''
-    "<a href=\"#csv{url}\"#{target}>#{text}</a>"
+    "<a href=\"#{url}\"#{target}>#{text}</a>"
   end
 
   def to_cash(number)
