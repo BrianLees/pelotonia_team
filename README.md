@@ -5,7 +5,7 @@ Create JSON data files
 ```bash
 ruby pelotonia_team.rb
 ```
-There should be two files created `pelotonia_team.json` and `pelotonia_peloton.json`.
+There should be two files created in the `data/` directory, `pelotonia_team.json` and `pelotonia_peloton.json`.
 
 ###Viewing data
 Launch Sinatra app

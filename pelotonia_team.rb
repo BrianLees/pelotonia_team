@@ -50,18 +50,18 @@ member_links.each do |member_link|
     member_info[:goal] = member_info[:goal].split(' ').first
     member_info[:finished] = 'yes'
   else
-    member_info[:type] == 'Rider' ? member_info[:finished] = 'no' : member_info[:finished] = 'N/A'
+    member_info[:finished] = member_info[:type] == 'Rider' ? 'no' : 'N/A'
   end
 
   member_data << member_info
 end
 member_data.uniq!
 
-File.open('pelotonia_peloton.json', 'w') do |file|
+File.open('data/pelotonia_peloton.json', 'w') do |file|
   file.write(team_data.to_json)
 end
 
-File.open('pelotonia_team.json', 'w') do |file|
+File.open('data/pelotonia_team.json', 'w') do |file|
   file.write(member_data.to_json)
 end
 
